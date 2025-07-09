@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+body {
+  /* font-family: "Righteous", cursive; */
+  /* font-family: "Poppins", sans-serif; */
+  font-family: "Michroma", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+}
+
+.bg-space {
+  background-image: url("./assets/space.avif"); /* من Unsplash */
+  background-size: cover;
+  background-position: center;
+  animation: zoomInSlow 30s linear infinite;
+  width: 100vw;
+  height: 100vh;
+}
+
+@keyframes zoomInSlow {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
