@@ -34,7 +34,7 @@ const App = () => {
       <div className="hidden md:flex flex-wrap justify-center gap-2 mb-4 z-10 max950:flex-col max950:items-center">
         {/* السطر الأول */}
         <div className="flex flex-wrap justify-center gap-2">
-          {"RELIX IS".split("").map((char, index) => {
+          {"RELIX IS ".split("").map((char, index) => {
             const delay = Math.random() * 2;
             return (
               <motion.span
