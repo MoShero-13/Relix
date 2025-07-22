@@ -1,17 +1,14 @@
 @import "tailwindcss";
 
 body {
-  /* font-family: "Righteous", cursive; */
-  /* font-family: "Poppins", sans-serif; */
-  font-family: "Michroma", sans-serif;
-  font-weight: bold;
+  font-family: "Orbitron", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
   font-style: normal;
 }
 
 .bg-space {
-  background-image: url("./assets/space.avif"); /* من Unsplash */
-  background-size: cover;
-  background-position: center;
+  background-color: #0a8262;
   animation: zoomInSlow 30s linear infinite;
   width: 100vw;
   height: 100vh;
@@ -25,3 +22,189 @@ body {
     transform: scale(1.2);
   }
 }
+
+/* أنيميشن للفليكّر الأسود */
+@keyframes neon-flicker-black {
+  0%,
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 0.5px #000, 0 0 1px #111, 0 0 2px #222, 0 0 3px #333,
+      0 0 4px #444, 0 0 5px #555, 0 0 6px #666;
+  }
+  50% {
+    opacity: 0;
+    text-shadow: none;
+  }
+}
+
+/* أنيميشن للفليكّر الأزرق */
+@keyframes neon-flicker-cyan {
+  0%,
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 0.5px #29e8d1, 0 0 1px #29e8d1, 0 0 2px #29e8d1,
+      0 0 3px #29e8d1, 0 0 4px #29e8d1, 0 0 5px #29e8d1, 0 0 6px #29e8d1;
+  }
+  50% {
+    opacity: 0.5;
+    text-shadow: none;
+  }
+}
+
+/* فليكّر للنص الأسود */
+.flicker-hover span {
+  display: inline-block;
+  animation: none;
+  transition: all 0.3s ease;
+  color: #000; /* لون النص أسود */
+}
+
+.flicker-hover:hover span {
+  animation: neon-flicker-black 1.5s infinite;
+}
+
+/* تأخيرات للحروف للنص الأسود */
+.flicker-hover:hover span:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.flicker-hover:hover span:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.flicker-hover:hover span:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.flicker-hover:hover span:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.flicker-hover:hover span:nth-child(5) {
+  animation-delay: 0.25s;
+}
+.flicker-hover:hover span:nth-child(6) {
+  animation-delay: 0.35s;
+}
+.flicker-hover:hover span:nth-child(7) {
+  animation-delay: 0.45s;
+}
+
+/* RotatingText */
+
+.rotating-text {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  height: 2.5rem;
+  color: #92c9db;
+  word-spacing: 0.5rem;
+}
+
+/* حجم أصغر للجوال */
+@media (max-width: 640px) {
+  .rotating-text {
+    font-size: 1rem;
+  }
+}
+
+/* حركة التشغيل والطفي بدون ظل، اللون أبيض */
+.flicker-hover1 span {
+  display: inline-block;
+  animation: neon-flicker-white 5s infinite;
+  transition: all 0.3s ease;
+  color: #92c9db;
+}
+
+/* تأخيرات لكل حرف */
+.flicker-hover1 span:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.flicker-hover1 span:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.flicker-hover1 span:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.flicker-hover1 span:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.flicker-hover1 span:nth-child(5) {
+  animation-delay: 0.25s;
+}
+.flicker-hover1 span:nth-child(6) {
+  animation-delay: 0.35s;
+}
+.flicker-hover1 span:nth-child(7) {
+  animation-delay: 0.45s;
+}
+.flicker-hover1 span:nth-child(8) {
+  animation-delay: 0.55s;
+}
+.flicker-hover1 span:nth-child(9) {
+  animation-delay: 0.65s;
+}
+.flicker-hover1 span:nth-child(10) {
+  animation-delay: 0.75s;
+}
+/* زد التأخيرات حسب عدد الأحرف عندك */
+
+@keyframes neon-flicker-white {
+  0%,
+  20% {
+    opacity: 1;
+    text-shadow: none;
+  }
+  50% {
+    opacity: 0;
+    text-shadow: none;
+  }
+  100% {
+    opacity: 0;
+    text-shadow: none;
+  }
+}
+
+@keyframes neon-flicker-white1 {
+  0%,
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 0.5px #fff, 0 0 1px #eee, 0 0 2px #ddd, 0 0 3px #ccc,
+      0 0 4px #bbb, 0 0 5px #aaa, 0 0 6px #999;
+  }
+  50% {
+    opacity: 0.5;
+    text-shadow: none;
+  }
+}
+
+.flicker-hover-white span {
+  display: inline-block;
+  animation: none;
+  transition: all 0.3s ease;
+  color: #ffffff; /* لون النص */
+}
+
+.flicker-hover-white:hover span {
+  animation: neon-flicker-white1 1.5s infinite;
+}
+
+/* تأخير لكل حرف */
+.flicker-hover-white:hover span:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.flicker-hover-white:hover span:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.flicker-hover-white:hover span:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.flicker-hover-white:hover span:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.flicker-hover-white:hover span:nth-child(5) {
+  animation-delay: 0.25s;
+}
+.flicker-hover-white:hover span:nth-child(6) {
+  animation-delay: 0.35s;
+}
+.flicker-hover-white:hover span:nth-child(7) {
+  animation-delay: 0.45s;
+}
+/* زد أكثر حسب عدد الأحرف */
