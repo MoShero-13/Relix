@@ -76,7 +76,7 @@ export function Preloader({ onFinish }: { onFinish: () => void }) {
           return (
             <motion.span
               key={`relix-char-${index}`}
-              className="text-[#29E8D1] text-6xl sm:text-7xl md:text-8xl font-extrabold tracking-widest"
+              className="text-[#7FCEC4] text-6xl sm:text-7xl md:text-8xl font-extrabold tracking-widest"
               initial={{ opacity: 0, scale: 0.7 }}
               animate={
                 isFlickering
@@ -105,7 +105,7 @@ export function Preloader({ onFinish }: { onFinish: () => void }) {
       </div>
 
       {/* Progress Counter */}
-      <div className="absolute bottom-6 right-8 text-[#29E8D1] text-5xl sm:text-6xl font-extrabold font-mono tracking-wider opacity-95">
+      <div className="absolute bottom-6 right-8 text-[#7FCEC4] text-5xl sm:text-6xl font-extrabold font-mono tracking-wider opacity-95">
         {Math.floor(progress)}%
       </div>
     </div>

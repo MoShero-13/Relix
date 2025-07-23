@@ -42,7 +42,10 @@ const App = () => {
               onAnimationComplete={() => setStage("preloaderRise")}
               style={preloaderStyle}
             >
-              <span className="shimmer-effect" style={preloaderTextStyle}>
+              <span
+                className="shimmer-effect text-[#7FCEC4] text-6xl sm:text-7xl md:text-8xl font-extrabold"
+                style={{ letterSpacing: "0.2em" }} // زيد القيمة حسب ما يناسبك
+              >
                 RELIX
               </span>
             </motion.div>
@@ -57,7 +60,10 @@ const App = () => {
               onAnimationComplete={() => setStage("mainMoveUp")}
               style={preloaderStyle}
             >
-              <span className="shimmer-effect" style={preloaderTextStyle}>
+              <span
+                className="shimmer-effect text-[#7FCEC4] text-6xl sm:text-7xl md:text-8xl font-extrabold"
+                style={{ letterSpacing: "0.2em" }} // زيد القيمة حسب ما يناسبك
+              >
                 RELIX
               </span>
             </motion.div>
@@ -91,13 +97,6 @@ const App = () => {
       </div>
     </>
   );
-};
-
-const preloaderTextStyle = {
-  color: "#29E8D1",
-  fontSize: "6rem",
-  fontWeight: "bold",
-  letterSpacing: "0.75rem",
 };
 
 const preloaderStyle = {

@@ -1,5 +1,12 @@
 import { useState } from "react";
 import { FiUser, FiSearch } from "react-icons/fi";
+import {
+  FaGithub,
+  FaWhatsapp,
+  FaTelegramPlane,
+  FaEnvelope,
+} from "react-icons/fa";
+
 import "../../index.css";
 import spaceVideo from "../../assets/spacevideo_GfgdMU3c.mp4";
 import { RotatingText } from "../../components/RotatingText";
@@ -25,42 +32,42 @@ export function MainPage() {
           "linear-gradient(150deg, rgba(127, 206, 196, 1) 18%, rgba(63, 106, 113, 1) 64%, rgba(1, 8, 31, 1) 92%)",
       }}
     >
-      <nav className="w-full max-w-7xl mx-auto flex items-center justify-between py-4 px-6 rounded-[16px] shadow-md relative border border-[#01081F] backdrop-blur-md bg-white/10">
-        {/* القائمة الجانبية على اليسار (ديسكتوب فقط) */}
+      {/* Navigation */}
+      <nav className="w-full max-w-7xl mx-auto flex items-center justify-between py-3 px-4 rounded-[16px] shadow-md relative border border-[#01081F] backdrop-blur-md bg-white/10">
         <ul className="hidden md:flex space-x-8 text-white font-medium text-sm">
-          <li className="cursor-pointer transition duration-300">
-            <FlickerText text="Services" />
-          </li>
-          <li className="cursor-pointer transition">
-            <FlickerText text="About Us" />
-          </li>
-          <li className="cursor-pointer transition">
-            <FlickerText text="Contact" />
-          </li>
+          {["Projects", "Services", "About Us"].map((item) => (
+            <li key={item} className="cursor-pointer">
+              <FlickerText text={item} />
+            </li>
+          ))}
         </ul>
-
-        {/* الشعار بالنص في الديسكتوب، يسار في الموبايل */}
         <div className="text-2xl font-bold text-black select-none md:absolute md:left-1/2 md:-translate-x-1/2">
           RELIX
         </div>
-
-        {/* الأزرار الجانبية (ديسكتوب فقط) */}
         <div className="hidden md:flex items-center space-x-6">
-          <button className="text-black transition flex items-center space-x-1 text-sm font-medium">
-            <FiSearch size={18} />
-            <FlickerText text="Search" />
-          </button>
-          <button className="text-black transition flex items-center space-x-1 text-sm font-medium">
-            <FiUser size={18} />
-            <FlickerText text="Login" />
+          <button className="relative bg-white rounded-[12px] px-4 py-2 flex items-center space-x-2 text-black text-sm font-medium cursor-pointer">
+            <FlickerText text="Contact" />
+            {/* السهم المائل */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-4 h-4 -rotate-45 text-black"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
           </button>
         </div>
 
-        {/* زر القائمة (موبايل فقط) */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="md:hidden flex flex-col space-y-1.5 cursor-pointer ml-auto"
-          aria-label="Toggle Menu"
         >
           <span
             className={`block w-6 h-0.5 bg-[#01081F] rounded transition-transform duration-300 ${
@@ -80,61 +87,87 @@ export function MainPage() {
         </button>
       </nav>
 
-      {/* القائمة للموبايل */}
       {mobileMenuOpen && (
         <ul className="md:hidden mt-3 space-y-3 rounded-[16px] py-4 px-6 shadow-md w-full max-w-7xl border border-[#01081F] backdrop-blur-md bg-white/10 text-white font-medium text-sm">
-          <li className="cursor-pointer transition">
-            <FlickerText text="Services" />
-          </li>
-          <li className="cursor-pointer transition">
-            <FlickerText text="About Us" />
-          </li>
-          <li className="cursor-pointer transition">
-            <FlickerText text="Contact" />
-          </li>
-          <li className="text-black cursor-pointer transition flex items-center space-x-2">
+          {["Services", "About Us", "Contact"].map((item) => (
+            <li key={item} className="cursor-pointer">
+              <FlickerText text={item} />
+            </li>
+          ))}
+          <li className="text-black flex items-center space-x-2 cursor-pointer">
             <FiSearch size={18} />
             <FlickerText text="Search" />
           </li>
-          <li className="text-black cursor-pointer transition flex items-center space-x-2">
+          <li className="text-black flex items-center space-x-2 cursor-pointer">
             <FiUser size={18} />
             <FlickerText text="Login" />
           </li>
         </ul>
       )}
 
+      {/* Hero Section */}
       <div className="max-w-7xl w-full mx-auto mt-8 overflow-hidden rounded-[16px] lg:rounded-[30px] relative h-[30vh] sm:h-[50vh] lg:h-[80vh]">
-        {/* الفيديو بقالب SVG */}
+        {/* Social Icons vertical */}
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 z-[10] hidden md:flex flex-col gap-3 p-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-[16px]">
+          <a
+            href="https://wa.me/963953670264"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaWhatsapp className="text-white w-6 h-6 hover:text-green-400 transition-colors" />
+          </a>
+          <a
+            href="https://github.com/MoShero-13"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaGithub className="text-white w-6 h-6 hover:text-purple-400 transition-colors" />
+          </a>
+          <a
+            href="https://t.me/+963953670264"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaTelegramPlane className="text-white w-6 h-6 hover:text-sky-400 transition-colors" />
+          </a>
+          <a
+            href="mailto:mo3206213@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaEnvelope className="text-white w-6 h-6 hover:text-red-400 transition-colors" />
+          </a>
+        </div>
+
         <svg
           width="100%"
           height="100%"
           viewBox="0 0 1000 500"
           preserveAspectRatio="none"
-          style={{ position: "absolute", top: 0, left: 0, zIndex: 0 }}
+          className="absolute top-0 left-0 z-0"
         >
           <defs>
             <clipPath id="clipBox" clipPathUnits="objectBoundingBox">
               <path
                 d="
-            M 0.016 0
-            Q 0 0 0 0.032
-            V 0.968
-            Q 0 1 0.016 1
-            H 0.684
-            Q 0.7 1 0.7 0.968
-            V 0.86
-            Q 0.7 0.828 0.716 0.828
-            H 0.984
-            Q 1 0.828 1 0.796
-            V 0.032
-            Q 1 0 0.984 0
-            H 0.016
-            Z"
+                M 0.016 0
+                Q 0 0 0 0.032
+                V 0.968
+                Q 0 1 0.016 1
+                H 0.684
+                Q 0.7 1 0.7 0.968
+                V 0.86
+                Q 0.7 0.828 0.716 0.828
+                H 0.984
+                Q 1 0.828 1 0.796
+                V 0.032
+                Q 1 0 0.984 0
+                H 0.016
+                Z"
               />
             </clipPath>
           </defs>
 
-          {/* الفيديو */}
           <foreignObject
             width="100%"
             height="100%"
@@ -147,43 +180,27 @@ export function MainPage() {
               muted
               loop
               playsInline
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              }}
+              className="w-full h-full object-cover"
             />
           </foreignObject>
 
-          {/* التدرج الأسود */}
           <foreignObject
             width="100%"
             height="100%"
             clipPath="url(#clipBox)"
             style={{ zIndex: 2 }}
           >
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                background: "linear-gradient(to top, #000, rgba(0, 0, 0, 0))",
-              }}
-            />
+            <div className="w-full h-full bg-gradient-to-t from-black to-transparent" />
           </foreignObject>
         </svg>
-        <div
-          className="absolute z-[1] bottom-0 right-0 w-[29%] h-[15%] 
-             flex items-center justify-center gap-2 
-             px-4 py-2 sm:rounded-[16px] rounded-[8px] 
-             backdrop-blur-md bg-white/10 border border-black/30 
-             text-white shadow-lg"
-        >
-          <span className="text-[10px] sm:text-base font-medium flicker-hover-white">
+
+        {/* CTA Button */}
+        <div className="absolute z-[1] bottom-0 right-0 w-[29%] h-[15%] flex items-center justify-center gap-2 px-4 py-2 sm:rounded-[16px] rounded-[8px] backdrop-blur-md bg-white/10 border border-black/30 text-white shadow-lg flicker-hover-white cursor-pointer">
+          <span className="text-[10px] sm:text-base font-medium">
             {"Discover\u00A0more".split("").map((char, i) => (
               <span key={i}>{char}</span>
             ))}
           </span>
-
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-4 h-4 sm:w-5 sm:h-5"
@@ -200,29 +217,14 @@ export function MainPage() {
           </svg>
         </div>
 
-        {/* النص فوق الفيديو */}
+        {/* Text Overlay */}
         <div className="absolute z-[3] bottom-0 sm:bottom-4 lg:bottom-8 left-[5%] text-white text-left">
-          <h1
-            style={{
-              fontSize: "clamp(1.5rem, 2vw + 1rem, 3rem)", // من 1.5 بالجوال حتى 3 بالديسكتوب
-              marginBottom: "0.5rem",
-              fontWeight: "bold",
-              lineHeight: "1.2",
-            }}
-          >
+          <h1 className="text-2xl sm:text-4xl font-extrabold leading-tight">
             We craft digital
           </h1>
-          <h1
-            style={{
-              fontSize: "clamp(1.5rem, 2vw + 1rem, 3rem)",
-              marginBottom: "1rem",
-              fontWeight: "bold",
-              lineHeight: "1.2",
-            }}
-          >
+          <h1 className="text-2xl sm:text-4xl font-extrabold leading-tight mb-4">
             experiences
           </h1>
-
           <RotatingText
             texts={[
               "Web\u00A0Development",
