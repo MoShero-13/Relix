@@ -11,6 +11,7 @@ import spaceVideo from "../../assets/spacevideo_GfgdMU3c.mp4";
 import { RotatingText } from "../../components/RotatingText";
 import { Projects } from "./Projects";
 import Services from "./Services";
+import AboutUs from "./AboutUs";
 
 function FlickerText({ text }: { text: string }) {
   return (
@@ -237,6 +238,7 @@ export function MainPage({ onOpenProject }: MainPageProps) {
         </div>
         <Projects onOpenProject={onOpenProject} />
         <Services />
+        <AboutUs />
       </div>
     </>
   );
