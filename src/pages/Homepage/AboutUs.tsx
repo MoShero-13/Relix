@@ -1,8 +1,7 @@
-import image from "../../assets/about.jpg";
-
+import videoSrc from "../../assets/videoSrc.mp4";
 const AboutUs = () => {
   return (
-    <section className="max-w-7xl mx-auto px-4 py-16">
+    <section className="max-w-7xl mx-auto px-4 py-16" id="about-us">
       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
         {/* Left side: Title + Text */}
         <div className="md:w-1/2">
@@ -15,11 +14,14 @@ const AboutUs = () => {
         </div>
 
         {/* Right side: Vertical image */}
-        <div className="md:w-1/2 flex justify-end">
-          <img
-            src={image}
-            alt="About us"
-            className="h-[400px] w-[500px] rounded-lg shadow-lg object-cover"
+        <div className="md:w-1/2 flex justify-end border-2 border-black rounded-lg p-[5px] shadow-lg shadow-black/20">
+          <video
+            src={videoSrc}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="h-[400px] w-full rounded-lg object-cover"
           />
         </div>
       </div>

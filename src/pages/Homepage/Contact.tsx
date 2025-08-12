@@ -1,5 +1,6 @@
 import { FaWhatsapp, FaTelegram, FaGithub, FaLinkedin } from "react-icons/fa";
 import { motion, easeOut, type Variants } from "framer-motion";
+import "../../index.css";
 
 const lineVariants: Variants = {
   hidden: { opacity: 0, y: 50 },
@@ -24,7 +25,10 @@ const Contact = () => {
   const lines = ["Ready to", "take the", "leap?"];
 
   return (
-    <section className="max-w-7xl mx-auto px-4 flex flex-col min-h-screen">
+    <section
+      className="max-w-7xl mx-auto px-4 flex flex-col min-h-screen"
+      id="contact"
+    >
       {/* Motivational Quote */}
       <div className="flex-grow flex flex-col justify-center">
         <h2 className="font-bold text-black text-left w-full break-words">
@@ -36,7 +40,7 @@ const Contact = () => {
               whileInView="visible"
               viewport={{ once: false, amount: 0.3 }}
               variants={lineVariants}
-              className="block text-[15vw] sm:text-[10vw] md:text-[8vw] mb-6"
+              className="block text-[15vw] sm:text-[10vw] md:text-[8vw] mb-6 font-roboto"
             >
               {line}
             </motion.span>

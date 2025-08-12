@@ -1,9 +1,9 @@
 import { useState } from "react";
 import type { FC, MouseEvent } from "react";
-import image1 from "../../assets/S1.jpg";
-import image2 from "../../assets/S2.jpg";
-import image3 from "../../assets/S3.jpg";
-import image4 from "../../assets/S4.jpg";
+import image1 from "../../assets/S1.webp";
+import image2 from "../../assets/S2.webp";
+import image3 from "../../assets/S3.webp";
+import image4 from "../../assets/S4.webp";
 
 interface Service {
   id: string;
@@ -123,7 +123,7 @@ const Services: FC = () => {
   ];
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-16">
+    <section className="max-w-7xl mx-auto px-4 py-16" id="services">
       <div className="flex flex-col sm:flex-row justify-between mb-12">
         <h2 className="text-4xl font-bold text-gray-900 mr-6">Services</h2>
         <p className="max-w-lg flex-grow leading-relaxed text-left text-2xl sm:text-3xl">

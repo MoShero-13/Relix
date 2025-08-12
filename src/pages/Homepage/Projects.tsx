@@ -8,30 +8,30 @@ import P4 from "../../assets/P4.png";
 const projectsData = [
   {
     id: 1,
-    title: "Project One",
+    title: "Al-Gota",
     imgSrc: P1,
-    description: "Brief description for project one.",
+    description: "Al-Gota Food Company.",
     url: "https://algota.com",
   },
   {
     id: 2,
-    title: "Project Two",
+    title: "Al-Omran",
     imgSrc: P2,
-    description: "Brief description for project two.",
-    url: "https://al-omran-eight.vercel.app",
+    description: "Al-Omran Real Estate Company.",
+    url: "https://alomran.sy",
   },
   {
     id: 3,
-    title: "Project Three",
+    title: "GameHub",
     imgSrc: P3,
-    description: "Brief description for project three.",
+    description: "Game search website.",
     url: "https://game-hub-rho-silk.vercel.app",
   },
   {
     id: 4,
-    title: "Project Four",
+    title: "Relix",
     imgSrc: P4,
-    description: "Brief description for project four.",
+    description: "Technical services website.",
     url: "https://relix-ten.vercel.app",
   },
 ];
@@ -99,6 +99,7 @@ export function Projects({ onOpenProject }: ProjectsProps) {
     <section
       ref={sectionRef}
       className="max-w-7xl mx-auto px-4 py-16 overflow-hidden"
+      id="projects"
     >
       <h2 className="text-4xl font-extrabold text-gray-900 mb-4">Projects</h2>
 

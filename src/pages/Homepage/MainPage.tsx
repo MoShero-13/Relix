@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { FiUser, FiSearch } from "react-icons/fi";
+import { useEffect, useRef, useState } from "react";
 import {
   FaGithub,
   FaWhatsapp,
@@ -13,6 +12,7 @@ import { Projects } from "./Projects";
 import Services from "./Services";
 import AboutUs from "./AboutUs";
 import Contact from "./Contact";
+import { easeOut, motion, type Variants } from "framer-motion";
 
 function FlickerText({ text }: { text: string }) {
   return (
@@ -30,85 +30,164 @@ type MainPageProps = {
 
 export function MainPage({ onOpenProject }: MainPageProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const lastScrollY = useRef(0); // استخدم useRef هنا بدل state
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+        // تمرير لأسفل
+        setShowNavbar(false);
+      } else {
+        // تمرير لأعلى
+        setShowNavbar(true);
+      }
+
+      lastScrollY.current = currentScrollY; // حدّث القيمة
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []); // بدون dependency، يعمل مرة وحدة فقط
+
+  const textVariants: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.3, duration: 0.6, ease: easeOut },
+    }),
+  };
 
   return (
     <>
-      <div className="h-full w-full p-4">
-        {/* Navigation */}
-        <nav className="w-full max-w-7xl mx-auto flex items-center justify-between py-3 px-4 rounded-[16px] shadow-md relative border border-[#01081F] backdrop-blur-md bg-white/10">
-          <ul className="hidden md:flex space-x-8 text-white font-medium text-sm">
-            {["Projects", "Services", "About Us"].map((item) => (
-              <li key={item} className="cursor-pointer">
-                <FlickerText text={item} />
-              </li>
-            ))}
-          </ul>
-          <div className="text-2xl font-bold text-black select-none md:absolute md:left-1/2 md:-translate-x-1/2">
-            RELIX
-          </div>
-          <div className="hidden md:flex items-center space-x-6">
-            <button className="relative bg-white rounded-[12px] px-4 py-2 flex items-center space-x-2 text-black text-sm font-medium cursor-pointer">
-              <FlickerText text="Contact" />
-              {/* السهم المائل */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4 -rotate-45 text-black"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
-          </div>
+      {/* النافبار ثابت في الأعلى */}
+      <nav
+        className="fixed top-0 left-1/2 max-w-[90%] w-full sm:max-w-7xl py-3 px-6 rounded-[16px] shadow-md border border-[#01081F] backdrop-blur-md bg-white/10 text-white font-medium text-sm z-50 flex items-center mt-3 transition-transform duration-300"
+        style={{
+          transform: `translateX(-50%) translateY(${
+            showNavbar ? "0" : "-100px"
+          })`,
+        }}
+      >
+        {/* القائمة الرئيسية ديسكتوب */}
+        <ul className="hidden md:flex space-x-8 text-white font-medium text-sm flex-1">
+          {[
+            { label: "Projects", id: "projects" },
+            { label: "Services", id: "services" },
+            { label: "About Us", id: "about-us" },
+          ].map(({ label, id }) => (
+            <li
+              key={label}
+              className="cursor-pointer"
+              onClick={() => {
+                const el = document.getElementById(id);
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+            >
+              <FlickerText text={label} />
+            </li>
+          ))}
+        </ul>
 
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden flex flex-col space-y-1.5 cursor-pointer ml-auto"
+        {/* الشعار في الوسط */}
+        <div className="text-2xl font-bold text-black select-none flex-shrink-0 ">
+          RELIX
+        </div>
+
+        {/* زر Contact على اليمين */}
+        <div className="hidden md:flex items-center space-x-6 flex-1 justify-end">
+          <a
+            href="#contact"
+            className="relative bg-white rounded-[12px] px-4 py-2 flex items-center space-x-2 text-black text-sm font-medium cursor-pointer"
           >
-            <span
-              className={`block w-6 h-0.5 bg-[#01081F] rounded transition-transform duration-300 ${
-                mobileMenuOpen ? "rotate-45 translate-y-2" : ""
-              }`}
-            />
-            <span
-              className={`block w-6 h-0.5 bg-[#01081F] rounded transition-opacity duration-300 ${
-                mobileMenuOpen ? "opacity-0" : "opacity-100"
-              }`}
-            />
-            <span
-              className={`block w-6 h-0.5 bg-[#01081F] rounded transition-transform duration-300 ${
-                mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
-            />
-          </button>
-        </nav>
+            <FlickerText text="Contact" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-4 h-4 -rotate-45 text-black"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </a>
+        </div>
 
+        {/* زر الهامبرغر للموبايل */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden flex flex-col space-y-1.5 cursor-pointer ml-auto"
+        >
+          <span
+            className={`block w-6 h-0.5 bg-[#01081F] rounded transition-transform duration-300 ${
+              mobileMenuOpen ? "rotate-45 translate-y-2" : ""
+            }`}
+          />
+          <span
+            className={`block w-6 h-0.5 bg-[#01081F] rounded transition-opacity duration-300 ${
+              mobileMenuOpen ? "opacity-0" : "opacity-100"
+            }`}
+          />
+          <span
+            className={`block w-6 h-0.5 bg-[#01081F] rounded transition-transform duration-300 ${
+              mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+            }`}
+          />
+        </button>
+      </nav>
+
+      {/* باقي الصفحة مع margin-top يعادل ارتفاع النافبار */}
+      <div className="h-full w-full p-4 mt-14">
         {mobileMenuOpen && (
-          <ul className="md:hidden mt-3 space-y-3 rounded-[16px] py-4 px-6 shadow-md w-full max-w-7xl border border-[#01081F] backdrop-blur-md bg-white/10 text-white font-medium text-sm">
-            {["Services", "About Us", "Contact"].map((item) => (
-              <li key={item} className="cursor-pointer">
-                <FlickerText text={item} />
+          <ul
+            className="md:hidden space-y-3 rounded-[16px] py-4 px-6 shadow-md border border-[#01081F] backdrop-blur-md bg-white/10 text-white font-medium text-sm "
+            style={{
+              position: "fixed",
+              top: "80px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              maxWidth: "1120px",
+              width: "90%",
+              zIndex: 51,
+              marginTop: 0,
+            }}
+          >
+            {[
+              { label: "Projects", id: "projects" },
+              { label: "Services", id: "services" },
+              { label: "About Us", id: "about-us" },
+              { label: "Contact", id: "contact" },
+            ].map(({ label, id }) => (
+              <li
+                key={label}
+                className="cursor-pointer"
+                onClick={() => {
+                  const el = document.getElementById(id);
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth" });
+                  }
+                  setMobileMenuOpen(false); // يغلق المينيو بعد الضغط
+                }}
+              >
+                <FlickerText text={label} />
               </li>
             ))}
-            <li className="text-black flex items-center space-x-2 cursor-pointer">
-              <FiSearch size={18} />
-              <FlickerText text="Search" />
-            </li>
-            <li className="text-black flex items-center space-x-2 cursor-pointer">
-              <FiUser size={18} />
-              <FlickerText text="Login" />
-            </li>
           </ul>
         )}
 
         {/* Hero Section */}
-        <div className="max-w-7xl w-full mx-auto mt-8 overflow-hidden rounded-[16px] lg:rounded-[30px] relative h-[30vh] sm:h-[50vh] lg:h-[80vh]">
+        <div className="max-w-7xl w-full mx-auto mt-12 overflow-hidden rounded-[16px] lg:rounded-[30px] relative h-[30vh] sm:h-[50vh] lg:h-[80vh]">
           {/* Social Icons vertical */}
           <div className="absolute right-4 top-1/2 -translate-y-1/2 z-[10] hidden md:flex flex-col gap-3 p-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-[16px]">
             <a
@@ -221,12 +300,25 @@ export function MainPage({ onOpenProject }: MainPageProps) {
 
           {/* Text Overlay */}
           <div className="absolute z-[3] bottom-0 sm:bottom-4 lg:bottom-8 left-[5%] text-white text-left">
-            <h1 className="text-2xl sm:text-4xl font-extrabold leading-tight">
+            <motion.h1
+              className="text-2xl sm:text-4xl font-extrabold leading-tight"
+              initial="hidden"
+              animate="visible"
+              variants={textVariants}
+            >
               We craft digital
-            </h1>
-            <h1 className="text-2xl sm:text-4xl font-extrabold leading-tight mb-4">
+            </motion.h1>
+
+            <motion.h1
+              className="text-2xl sm:text-4xl font-extrabold leading-tight mb-4"
+              initial="hidden"
+              animate="visible"
+              variants={textVariants}
+              transition={{ delay: 1, duration: 0.6, ease: "easeOut" }}
+            >
               experiences
-            </h1>
+            </motion.h1>
+
             <RotatingText
               texts={[
                 "Web\u00A0Development",
