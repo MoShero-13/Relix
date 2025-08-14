@@ -66,7 +66,7 @@ export function MainPage({ onOpenProject }: MainPageProps) {
     <>
       {/* النافبار ثابت في الأعلى */}
       <nav
-        className="fixed top-0 left-1/2 max-w-[90%] w-full sm:max-w-7xl py-3 px-6 rounded-[16px] shadow-md border border-[#01081F] backdrop-blur-md bg-white/10 text-white font-medium text-sm z-50 flex items-center mt-3 transition-transform duration-300"
+        className="fixed top-0 left-1/2 max-w-[90%] w-full md:max-w-7xl py-3 px-6 rounded-[16px] shadow-md border border-[#01081F] backdrop-blur-md bg-white/10 text-white font-medium text-sm z-50 flex items-center mt-3 transition-transform duration-300"
         style={{
           transform: `translateX(-50%) translateY(${
             showNavbar ? "0" : "-100px"
@@ -187,9 +187,13 @@ export function MainPage({ onOpenProject }: MainPageProps) {
         )}
 
         {/* Hero Section */}
-        <div className="max-w-7xl w-full mx-auto mt-12 overflow-hidden rounded-[16px] lg:rounded-[30px] relative h-[30vh] sm:h-[50vh] lg:h-[80vh]">
+        <div
+          id="home"
+          className="max-w-7xl w-full mx-auto mt-12 overflow-hidden rounded-[16px] lg:rounded-[30px] relative h-[30vh] sm:h-[50vh] lg:h-[80vh]"
+        >
           {/* Social Icons vertical */}
           <div className="absolute right-4 top-1/2 -translate-y-1/2 z-[10] hidden md:flex flex-col gap-3 p-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-[16px]">
+            {/* ... social links ... */}
             <a
               href="https://wa.me/963953670264"
               target="_blank"
@@ -220,63 +224,63 @@ export function MainPage({ onOpenProject }: MainPageProps) {
             </a>
           </div>
 
-          <svg
-            width="100%"
-            height="100%"
-            viewBox="0 0 1000 500"
-            preserveAspectRatio="none"
-            className="absolute top-0 left-0 z-0"
-          >
-            <defs>
-              <clipPath id="clipBox" clipPathUnits="objectBoundingBox">
-                <path
-                  d="
-                M 0.016 0
-                Q 0 0 0 0.032
-                V 0.968
-                Q 0 1 0.016 1
-                H 0.684
-                Q 0.7 1 0.7 0.968
-                V 0.86
-                Q 0.7 0.828 0.716 0.828
-                H 0.984
-                Q 1 0.828 1 0.796
-                V 0.032
-                Q 1 0 0.984 0
-                H 0.016
-                Z"
+          {/* For large screens: clipPath video */}
+          <div className="hidden sm:block w-full h-full">
+            <svg
+              width="100%"
+              height="100%"
+              viewBox="0 0 1000 500"
+              preserveAspectRatio="none"
+              className="absolute top-0 left-0 z-0"
+            >
+              <defs>
+                <clipPath id="clipBox" clipPathUnits="objectBoundingBox">
+                  <path d="M 0.016 0 Q 0 0 0 0.032 V 0.968 Q 0 1 0.016 1 H 0.684 Q 0.7 1 0.7 0.968 V 0.86 Q 0.7 0.828 0.716 0.828 H 0.984 Q 1 0.828 1 0.796 V 0.032 Q 1 0 0.984 0 H 0.016 Z" />
+                </clipPath>
+              </defs>
+
+              <foreignObject
+                width="100%"
+                height="100%"
+                clipPath="url(#clipBox)"
+                style={{ zIndex: 1 }}
+              >
+                <video
+                  src={spaceVideo}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover"
                 />
-              </clipPath>
-            </defs>
+              </foreignObject>
 
-            <foreignObject
-              width="100%"
-              height="100%"
-              clipPath="url(#clipBox)"
-              style={{ zIndex: 1 }}
-            >
-              <video
-                src={spaceVideo}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              />
-            </foreignObject>
+              <foreignObject
+                width="100%"
+                height="100%"
+                clipPath="url(#clipBox)"
+                style={{ zIndex: 2 }}
+              >
+                <div className="w-full h-full bg-gradient-to-t from-black to-transparent" />
+              </foreignObject>
+            </svg>
+          </div>
 
-            <foreignObject
-              width="100%"
-              height="100%"
-              clipPath="url(#clipBox)"
-              style={{ zIndex: 2 }}
-            >
-              <div className="w-full h-full bg-gradient-to-t from-black to-transparent" />
-            </foreignObject>
-          </svg>
+          {/* For small screens: normal rectangle video */}
+          <div className="sm:hidden w-full h-full">
+            <video
+              src={spaceVideo}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover rounded-[16px]"
+            />
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent" />
+          </div>
 
           {/* CTA Button */}
-          <div className="absolute z-[1] bottom-0 right-0 w-[29%] h-[15%] flex items-center justify-center gap-2 px-4 py-2 sm:rounded-[16px] rounded-[8px] backdrop-blur-md bg-white/10 border border-black/30 text-white shadow-lg flicker-hover-white cursor-pointer">
+          <div className="hidden md:flex absolute z-[1] bottom-0 right-0 w-[29%] h-[15%] flex items-center justify-center gap-2 px-4 py-2 sm:rounded-[16px] rounded-[8px] backdrop-blur-md bg-white/10 border border-black/30 text-white shadow-lg flicker-hover-white cursor-pointer">
             <span className="text-[10px] sm:text-base font-medium">
               {"Discover\u00A0more".split("").map((char, i) => (
                 <span key={i}>{char}</span>

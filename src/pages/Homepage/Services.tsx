@@ -1,9 +1,25 @@
 import { useState } from "react";
 import type { FC, MouseEvent } from "react";
+import { motion, type Variants } from "framer-motion";
 import image1 from "../../assets/S1.webp";
 import image2 from "../../assets/S2.webp";
 import image3 from "../../assets/S3.webp";
 import image4 from "../../assets/S4.webp";
+
+// أمثلة لشعارات الأدوات (استبدلها بصورك)
+import tsLogo from "../../assets/Icons/ts.svg";
+import jsLogo from "../../assets/Icons/js.svg";
+import reactLogo from "../../assets/Icons/react.svg";
+import figmaLogo from "../../assets/Icons/figma.svg";
+import nodeLogo from "../../assets/Icons/node.svg";
+import muiLogo from "../../assets/Icons/mui.svg";
+import tailwindLogo from "../../assets/Icons/tailwind.svg";
+import flutterLogo from "../../assets/Icons/flutter.svg";
+import firebaseLogo from "../../assets/Icons/firebase.svg";
+import framerMotionLogo from "../../assets/Icons/framerMotion.svg";
+import i18nextLogo from "../../assets/Icons/i18next.svg";
+import gitLogo from "../../assets/Icons/git.svg";
+import vercelLogo from "../../assets/Icons/vercel.svg";
 
 interface Service {
   id: string;
@@ -12,40 +28,43 @@ interface Service {
   imgSrc: string;
 }
 
+const textVariants: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+const containerVariants: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.2 } },
+};
+
 const ServiceRow: FC<{ service: Service }> = ({ service }) => {
   const [showImg, setShowImg] = useState(false);
   const [imgPos, setImgPos] = useState({ x: 0, y: 0 });
-
   const imgWidth = 300;
   const imgHeight = 300;
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    // نضبط الاحداثيات بحيث مركز الصورة يكون مكان الماوس
     setImgPos({
       x: e.clientX - imgWidth / 2,
       y: e.clientY - imgHeight / 2,
     });
   };
 
-  const handleMouseEnter = () => setShowImg(true);
-  const handleMouseLeave = () => setShowImg(false);
-
   return (
     <>
       <div
         onMouseMove={handleMouseMove}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className="relative flex items-center gap-6 py-6 border-b-2 border-gray-300  "
+        onMouseEnter={() => setShowImg(true)}
+        onMouseLeave={() => setShowImg(false)}
+        className="relative flex items-center gap-6 py-6 border-b-2 border-gray-300"
       >
-        <div className="text-xl font-bold  min-w-[40px] ">{service.id}</div>
-
+        <div className="text-xl font-bold min-w-[40px]">{service.id}</div>
         <div className="flex flex-col w-1/4">
           <div className="text-2xl font-semibold text-gray-900">
             {service.title}
           </div>
         </div>
-
         <div className="text-sm text-white-600 w-1/4 hidden sm:block">
           <div>{service.desc}</div>
           <div className="absolute bottom-10 right-5 z-30">
@@ -67,7 +86,6 @@ const ServiceRow: FC<{ service: Service }> = ({ service }) => {
         </div>
       </div>
 
-      {/* الصورة المتحركة مع الماوس */}
       {showImg && (
         <img
           src={service.imgSrc}
@@ -75,7 +93,7 @@ const ServiceRow: FC<{ service: Service }> = ({ service }) => {
           draggable={false}
           style={{
             position: "fixed",
-            opacity: "0.8",
+            opacity: 0.8,
             objectFit: "cover",
             left: imgPos.x,
             top: imgPos.y,
@@ -122,20 +140,88 @@ const Services: FC = () => {
     },
   ];
 
+  const tools = [
+    { src: jsLogo, alt: "JavaScript" },
+    { src: reactLogo, alt: "React" },
+    { src: flutterLogo, alt: "flutter" },
+    { src: tsLogo, alt: "TypeScript" },
+    { src: figmaLogo, alt: "Figma" },
+    { src: nodeLogo, alt: "Node.js" },
+    { src: muiLogo, alt: "MUI" },
+    { src: tailwindLogo, alt: "Tailwind" },
+    { src: firebaseLogo, alt: "Firebase" },
+    { src: framerMotionLogo, alt: "Framer Motion" },
+    { src: i18nextLogo, alt: "i18next" },
+    { src: vercelLogo, alt: "Vercel" },
+    { src: gitLogo, alt: "Git" },
+  ];
+
   return (
     <section className="max-w-7xl mx-auto px-4 py-16" id="services">
-      <div className="flex flex-col sm:flex-row justify-between mb-12">
-        <h2 className="text-4xl font-bold text-gray-900 mr-6">Services</h2>
-        <p className="max-w-lg flex-grow leading-relaxed text-left text-2xl sm:text-3xl">
-          We offer a wide range of digital services tailored to help your
-          business thrive.
-        </p>
-      </div>
+      <motion.div className="flex flex-col sm:flex-row justify-between mb-12">
+        <motion.h2
+          className="text-4xl font-bold text-gray-900 mr-6"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{
+            opacity: 1,
+            x: 0,
+            transition: { duration: 0.6, ease: "easeOut" },
+          }}
+          viewport={{ once: false }}
+        >
+          Services
+        </motion.h2>
+
+        <motion.div
+          className="max-w-lg flex-grow text-left"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false }}
+          variants={containerVariants}
+        >
+          {`We offer a wide range of digital services tailored to help your business thrive.`
+            .split(". ")
+            .map((line, i) => (
+              <motion.p
+                key={i}
+                className="leading-relaxed text-2xl sm:text-3xl mb-2"
+                variants={textVariants}
+              >
+                {line}.
+              </motion.p>
+            ))}
+        </motion.div>
+      </motion.div>
 
       <div className="flex flex-col space-y-4">
         {services.map((service) => (
           <ServiceRow key={service.id} service={service} />
         ))}
+      </div>
+
+      {/* شريط الأدوات أسفل الخدمات */}
+      <div className="overflow-hidden mt-16 py-6">
+        <motion.div
+          className="flex gap-16"
+          animate={{
+            x: ["0%", "-50%"], // أو ممكن  "-100%" إذا حابب يروح كل المسافة
+          }}
+          transition={{
+            duration: 100,
+            ease: "linear",
+            repeat: Infinity,
+          }}
+          style={{ width: "max-content" }}
+        >
+          {[...tools, ...tools].map((tool, idx) => (
+            <img
+              key={idx}
+              src={tool.src}
+              alt={tool.alt}
+              className="h-16 w-auto object-contain filter brightness-0 invert"
+            />
+          ))}
+        </motion.div>
       </div>
     </section>
   );
