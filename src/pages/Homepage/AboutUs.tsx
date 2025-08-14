@@ -1,5 +1,6 @@
 import { easeOut, motion, type Variants } from "framer-motion";
 import videoSrc from "../../assets/videoSrc.mp4";
+import poster from "../../assets/poster2.png";
 
 const textLines = [
   "We are a passionate team dedicated to delivering top-notch digital ",
@@ -91,6 +92,7 @@ const AboutUs = () => {
         >
           <video
             src={videoSrc}
+            poster={poster}
             autoPlay
             muted
             loop
