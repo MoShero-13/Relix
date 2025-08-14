@@ -5,7 +5,7 @@ import {
   FaEnvelope,
 } from "react-icons/fa";
 import "../../index.css";
-import spaceVideo from "../../assets/spacevideo_GfgdMU3c.mp4";
+import spaceVideo from "../../assets/spaceVideo.mp4";
 import { RotatingText } from "../../components/RotatingText";
 import { Projects } from "./Projects";
 import Services from "./Services";
