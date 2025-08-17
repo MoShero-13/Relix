@@ -136,7 +136,7 @@ const Navbar = () => {
             { label: "Projects", id: "projects" },
             { label: "Services", id: "services" },
             { label: "About Us", id: "about-us" },
-            { label: "Contact", id: "contactUs" },
+            { label: "Contact", id: "contact" },
           ].map(({ label, id }) => (
             <li
               key={label}

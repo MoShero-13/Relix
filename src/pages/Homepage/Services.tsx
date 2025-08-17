@@ -44,19 +44,30 @@ const ServiceRow: FC<{ service: Service }> = ({ service }) => {
   const imgWidth = 300;
   const imgHeight = 300;
 
+  const isDesktop = window.innerWidth >= 1025; // lg breakpoint
+
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!isDesktop) return; // ما يعمل شي إلا بالديسكتوب
     setImgPos({
       x: e.clientX - imgWidth / 2,
       y: e.clientY - imgHeight / 2,
     });
   };
 
+  const handleMouseEnter = () => {
+    if (isDesktop) setShowImg(true);
+  };
+
+  const handleMouseLeave = () => {
+    if (isDesktop) setShowImg(false);
+  };
+
   return (
     <>
       <div
         onMouseMove={handleMouseMove}
-        onMouseEnter={() => setShowImg(true)}
-        onMouseLeave={() => setShowImg(false)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         className="relative flex items-center gap-6 py-6 border-b-2 border-gray-300"
       >
         <div className="text-xl font-bold min-w-[40px]">{service.id}</div>
@@ -86,7 +97,7 @@ const ServiceRow: FC<{ service: Service }> = ({ service }) => {
         </div>
       </div>
 
-      {showImg && (
+      {isDesktop && showImg && (
         <img
           src={service.imgSrc}
           alt={service.title}
