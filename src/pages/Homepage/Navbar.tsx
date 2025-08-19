@@ -10,33 +10,50 @@ function FlickerText({ text }: { text: string }) {
   );
 }
 
-const Navbar = () => {
+type NavbarProps = {
+  onNavigate?: (page: string) => void;
+};
+
+const Navbar = ({ onNavigate }: NavbarProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
-  const lastScrollY = useRef(0); // استخدم useRef هنا بدل state
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
       if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
-        // تمرير لأسفل
         setShowNavbar(false);
       } else {
-        // تمرير لأعلى
         setShowNavbar(true);
       }
-
-      lastScrollY.current = currentScrollY; // حدّث القيمة
+      lastScrollY.current = currentScrollY;
     };
-
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []); // بدون dependency، يعمل مرة وحدة فقط
+  }, []);
+
+  const menuItems = [
+    { label: "Home", id: "home" },
+    { label: "Projects", id: "projects" },
+    { label: "Services", id: "services" },
+    { label: "About Us", id: "about-us" },
+  ];
+
+  const handleClick = (id: string) => {
+    if (id === "about-us" && onNavigate) {
+      onNavigate("about"); // ← لما تضغط على About Us
+    } else if (id === "home" && onNavigate) {
+      onNavigate("home"); // ← لما تضغط على Home
+    } else {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+    setMobileMenuOpen(false);
+  };
+
   return (
     <>
-      {/* النافبار ثابت في الأعلى */}
       <nav
         className="fixed top-0 left-1/2 max-w-[90%] w-full md:max-w-7xl py-3 px-6 rounded-[16px] shadow-md border border-[#01081F] backdrop-blur-md bg-white/10 text-white font-medium text-sm z-50 flex items-center mt-3 transition-transform duration-300"
         style={{
@@ -45,34 +62,25 @@ const Navbar = () => {
           })`,
         }}
       >
-        {/* القائمة الرئيسية ديسكتوب */}
+        {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-8 text-white font-medium text-sm flex-1">
-          {[
-            { label: "Projects", id: "projects" },
-            { label: "Services", id: "services" },
-            { label: "About Us", id: "about-us" },
-          ].map(({ label, id }) => (
+          {menuItems.map(({ label, id }) => (
             <li
               key={label}
               className="cursor-pointer"
-              onClick={() => {
-                const el = document.getElementById(id);
-                if (el) {
-                  el.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
+              onClick={() => handleClick(id)}
             >
               <FlickerText text={label} />
             </li>
           ))}
         </ul>
 
-        {/* الشعار في الوسط */}
-        <div className="text-2xl font-bold text-black select-none flex-shrink-0 ">
+        {/* Logo */}
+        <div className="text-2xl font-bold text-black select-none flex-shrink-0">
           RELIX
         </div>
 
-        {/* زر Contact على اليمين */}
+        {/* Contact Button Desktop */}
         <div className="hidden md:flex items-center space-x-6 flex-1 justify-end">
           <a
             href="#contact"
@@ -96,7 +104,7 @@ const Navbar = () => {
           </a>
         </div>
 
-        {/* زر الهامبرغر للموبايل */}
+        {/* Hamburger Mobile */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="md:hidden flex flex-col space-y-1.5 cursor-pointer ml-auto"
@@ -118,9 +126,11 @@ const Navbar = () => {
           />
         </button>
       </nav>
+
+      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <ul
-          className="md:hidden space-y-3 rounded-[16px] py-4 px-6 shadow-md border border-[#01081F] backdrop-blur-md bg-white/10 text-white font-medium text-sm "
+          className="md:hidden space-y-3 rounded-[16px] py-4 px-6 shadow-md border border-[#01081F] backdrop-blur-md bg-white/10 text-white font-medium text-sm"
           style={{
             position: "fixed",
             top: "80px",
@@ -132,22 +142,11 @@ const Navbar = () => {
             marginTop: 0,
           }}
         >
-          {[
-            { label: "Projects", id: "projects" },
-            { label: "Services", id: "services" },
-            { label: "About Us", id: "about-us" },
-            { label: "Contact", id: "contact" },
-          ].map(({ label, id }) => (
+          {menuItems.map(({ label, id }) => (
             <li
               key={label}
               className="cursor-pointer"
-              onClick={() => {
-                const el = document.getElementById(id);
-                if (el) {
-                  el.scrollIntoView({ behavior: "smooth" });
-                }
-                setMobileMenuOpen(false); // يغلق المينيو بعد الضغط
-              }}
+              onClick={() => handleClick(id)}
             >
               <FlickerText text={label} />
             </li>
